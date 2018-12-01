@@ -2,7 +2,7 @@ import { when, once, on, emit } from "../utils/manager.js"
 
 export function Ship(props) {
 
-    let ship = function () {
+    let unit = function () {
         let triangle = new PIXI.Graphics();
         triangle.beginFill(0x66FF33);
         triangle.drawPolygon([
@@ -14,48 +14,48 @@ export function Ship(props) {
         return triangle;
     }();
 
-    ship.x = props.x;
-    ship.y = props.y;
-    ship.vx = props.vx;
-    ship.vy = props.vy;
+    unit.x = props.x;
+    unit.y = props.y;
+    unit.vx = props.vx;
+    unit.vy = props.vy;
 
-    ship.rotateLeft = delta => {
-        ship.rotation -= delta / 10;
+    unit.rotateLeft = delta => {
+        unit.rotation -= delta / 10;
     };
 
-    ship.rotateRight = delta => {
-        ship.rotation += delta / 10;
+    unit.rotateRight = delta => {
+        unit.rotation += delta / 10;
     };
 
     let acceleration = 0.1;
-    ship.accelerate = delta => {
-        ship.vx -= acceleration * delta * Math.sin(ship.rotation);
-        ship.vy += acceleration * delta * Math.cos(ship.rotation);
+    unit.accelerate = delta => {
+        unit.vx -= acceleration * delta * Math.sin(unit.rotation);
+        unit.vy += acceleration * delta * Math.cos(unit.rotation);
     };
 
-    ship.fire = () => {
-        ship.emit("fire");
+    unit.fire = () => {
+        unit.emit("fire");
     }
 
     let events = {};
-    ship.on = on(events);
-    ship.emit = emit(events);
+    unit.on = on(events);
+    unit.emit = emit(events);
 
     let commands = [];
-    ship.when = when(commands);
-    ship.once = once(commands);
+    unit.when = when(commands);
+    unit.once = once(commands);
 
     let decay = delta => Math.pow(0.99, delta);
-    ship.update = function (delta) {
+    unit.update = function (delta) {
         for (let command of commands) {
             command(delta);
         }
 
-        ship.vx *= decay(delta);
-        ship.vy *= decay(delta);
-        ship.x += ship.vx * delta;
-        ship.y += ship.vy * delta;
+        unit.vx *= decay(delta);
+        unit.vy *= decay(delta);
+        unit.x += unit.vx * delta;
+        unit.y += unit.vy * delta;
     };
 
-    return ship;
+    return unit;
 }

@@ -1,5 +1,5 @@
 export function Bullet(props) {
-    let bullet = function () {
+    let unit = function () {
         let line = new PIXI.Graphics();
         line.lineStyle(4, 0x66FF33, 1);
         line.moveTo(0, 0);
@@ -7,9 +7,9 @@ export function Bullet(props) {
         return line
     }();
 
-    bullet.x = props.x;
-    bullet.y = props.y;
-    bullet.rotation = props.rotation;
+    unit.x = props.x;
+    unit.y = props.y;
+    unit.rotation = props.rotation;
 
-    return bullet;
+    return unit;
 }
