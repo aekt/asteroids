@@ -46,29 +46,3 @@ export function keyboard(value) {
 
     return key;
 }
-
-export function whenKey(key) {
-    let keyObject = {};
-
-    let pressed = false;
-    keyboard(key).press = () => { pressed = true; };
-    keyboard(key).release = () => { pressed = false; };
-
-    keyObject.isPressed = callback => function (delta) {
-        if (pressed) {
-            callback(delta);
-        }
-    };
-
-    return keyObject
-}
-
-export function keyTriggers(commands) {
-    return function (key) {
-        let keyObject = {};
-        keyObject.isPressed = callback => {
-            commands.push(whenKey(key).isPressed(callback));
-        }
-        return keyObject;
-    }
-}
