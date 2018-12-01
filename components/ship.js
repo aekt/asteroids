@@ -7,8 +7,8 @@ export function Ship(props) {
         triangle.beginFill(0x66FF33);
         triangle.drawPolygon([
             -8, -8,
-            8, -8,
-            0, 16,
+            16, 0,
+            -8, 8,
         ]);
         triangle.endFill();
         return triangle;
@@ -29,8 +29,8 @@ export function Ship(props) {
 
     let acceleration = 0.1;
     unit.accelerate = delta => {
-        unit.vx -= acceleration * delta * Math.sin(unit.rotation);
-        unit.vy += acceleration * delta * Math.cos(unit.rotation);
+        unit.vx += acceleration * delta * Math.cos(unit.rotation);
+        unit.vy += acceleration * delta * Math.sin(unit.rotation);
     };
 
     unit.fire = () => {
