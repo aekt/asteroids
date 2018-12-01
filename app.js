@@ -15,7 +15,10 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(app.view);
 
-let ship = new Ship({ x: 256, y: 256, vx: 0, vy: 0 });
+let width = app.view.width;
+let height = app.view.height;
+
+let ship = new Ship({ x: width/2, y: height/2, vx: 0, vy: 0 });
 let bullets = [];
 
 ship.when("a", ship.rotateLeft);
