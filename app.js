@@ -19,6 +19,7 @@ let ship = new Ship({ x: 256, y: 256, vx: 0, vy: 0 });
 ship.when("a", ship.rotateLeft);
 ship.when("d", ship.rotateRight);
 ship.when("w", ship.accelerate);
+ship.when("s", ship.decelerate);
 ship.once(" ", ship.fire);
 
 app.stage.addChild(ship);

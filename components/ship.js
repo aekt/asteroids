@@ -33,6 +33,11 @@ export function Ship(props) {
         unit.vy += acceleration * delta * Math.sin(unit.rotation);
     };
 
+    unit.decelerate = delta => {
+        unit.vx -= acceleration * delta * Math.cos(unit.rotation);
+        unit.vy -= acceleration * delta * Math.sin(unit.rotation);
+    };
+
     unit.fire = () => {
         unit.emit("fire");
     }
