@@ -1,4 +1,4 @@
-function keyboard(value) {
+export function keyboard(value) {
 
     let key = {};
     key.value = value;
@@ -47,13 +47,28 @@ function keyboard(value) {
     return key;
 }
 
-function binder(key) {
+export function whenKey(key) {
     let keyObject = {};
-    let isPressed = false;
-    keyboard(key).press = () => { isPressed = true; };
-    keyboard(key).release = () => { isPressed = false; };
-    keyObject.isPressed = () => { return isPressed };
+
+    let pressed = false;
+    keyboard(key).press = () => { pressed = true; };
+    keyboard(key).release = () => { pressed = false; };
+
+    keyObject.isPressed = callback => function (delta) {
+        if (pressed) {
+            callback(delta);
+        }
+    };
+
     return keyObject
 }
 
-export { keyboard, binder };
+export function keyTriggers(commands) {
+    return function (key) {
+        let keyObject = {};
+        keyObject.isPressed = callback => {
+            commands.push(whenKey(key).isPressed(callback));
+        }
+        return keyObject;
+    }
+}
