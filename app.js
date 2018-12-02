@@ -21,7 +21,14 @@ let radius = Math.max(width, height) * 2;
 let centerX = width / 2;
 let centerY = height / 2;
 
-let ship = new Ship({ x: centerX, y: centerY, vx: 0, vy: 0 });
+let ship = new Ship({
+    x: centerX,
+    y: centerY,
+    vx: 0,
+    vy: 0,
+    width: width,
+    height: height,
+});
 let bullets = [];
 
 ship.when("a", ship.rotateLeft);

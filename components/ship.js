@@ -1,5 +1,5 @@
 import { when, once, on, emit } from "../utils/manager.js"
-
+import { mod } from "../utils/math.js"
 export function Ship(props) {
 
     let unit = function () {
@@ -60,6 +60,8 @@ export function Ship(props) {
         unit.vy *= decay(delta);
         unit.x += unit.vx * delta;
         unit.y += unit.vy * delta;
+        unit.x = mod(unit.x, props.width);
+        unit.y = mod(unit.y, props.height);
     };
 
     return unit;
